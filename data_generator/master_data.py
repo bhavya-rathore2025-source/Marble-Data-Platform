@@ -12,14 +12,41 @@ COMPANY_PREFIXES = [
     "Premium",
     "Heritage",
     "National",
+
     "Crystal",
     "Imperial",
     "Modern",
     "Prime",
-    "Universal"
+    "Universal",
+    "Pioneer",
+    "United",
+    "Eastern",
+    "Western",
+    "Northern",
+
+    "Southern",
+    "Capital",
+    "Sterling",
+    "Dynamic",
+    "Vertex",
+    "Summit",
+    "Apex",
+    "Legend",
+    "Platinum",
+    "Diamond",
+
+    "Everest",
+    "Blue Sky",
+    "Golden",
+    "Silver",
+    "Titan",
+    "Phoenix",
+    "Omega",
+    "Nova",
+    "Galaxy",
+    "Emerald"
 
 ]
-
 COMPANY_SUFFIXES = [
 
     "Marbles",
@@ -31,10 +58,43 @@ COMPANY_SUFFIXES = [
     "Trading",
     "Corporation",
     "Suppliers",
-    "Enterprises"
+    "Enterprises",
+
+    "Resources",
+    "Solutions",
+    "Materials",
+    "Products",
+    "International",
+    "Group",
+    "Associates",
+    "Holdings",
+    "Ventures",
+    "Distributors",
+
+    "Logistics",
+    "Builders",
+    "Impex",
+    "Trading Co.",
+    "Stone Works",
+    "Natural Stones",
+    "Stone Industries",
+    "Mining Company",
+    "Resources Ltd.",
+    "Private Limited"
 
 ]
+# Company endings
 
+COMPANY_ENDINGS = [
+
+    "",
+    "",
+    "",
+    "Pvt. Ltd.",
+    "Ltd.",
+    "LLP"
+
+]
 # Supplier locations
 
 LOCATIONS = {
