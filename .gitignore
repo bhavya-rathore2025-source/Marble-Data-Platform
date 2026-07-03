@@ -1,0 +1,59 @@
+# Python
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+
+.venv/
+venv/
+env/
+
+# VS Code
+
+.vscode/
+
+# Environment variables
+
+.env
+
+# Logs
+
+*.log
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# Generated source data
+
+source_data/
+
+# API generated data
+
+api/data/
+
+# Lakehouse output
+
+lakehouse/
+
+# Spark temporary files
+
+spark-warehouse/
+
+# Python cache
+
+.pytest_cache/
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# Build files
+
+build/
+dist/
+*.egg-info/

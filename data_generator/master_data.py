@@ -208,7 +208,23 @@ MATERIALS = {
     ]
 
 }
+MATERIAL_VARIANTS = [
 
+    "Premium",
+    "Standard",
+    "Commercial",
+    "Export",
+    "Polished",
+    "Honed",
+    "Leather",
+    "Brushed",
+    "Natural",
+    "Cut-to-Size",
+    "Slab",
+    "Block",
+    "Tile"
+
+]
 # Units of measure
 
 UNITS_OF_MEASURE = [
