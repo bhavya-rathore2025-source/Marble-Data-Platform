@@ -1,5 +1,6 @@
 from procurement.generate_suppliers import generate_suppliers
 from procurement.generate_materials import generate_materials
+from procurement.generate_purchase_orders import generate_purchase_orders
 
 
 def main():
@@ -8,6 +9,7 @@ def main():
 
     generate_suppliers()
     generate_materials()
+    generate_purchase_orders()
 
     print("\nDone.")
 

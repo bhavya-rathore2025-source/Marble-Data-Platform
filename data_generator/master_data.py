@@ -260,13 +260,6 @@ MATERIAL_STATUS = [
 
 # Currencies
 
-CURRENCIES = [
-
-    "INR",
-    "USD",
-    "EUR"
-
-]
 
 # Payment terms
 
@@ -281,11 +274,15 @@ PAYMENT_TERMS = [
 # Purchase order status
 
 PO_STATUS = [
-
     "Open",
     "Approved",
     "Closed"
+]
 
+PO_STATUS_WEIGHTS = [
+    20,
+    40,
+    40
 ]
 
 # Warehouse IDs
