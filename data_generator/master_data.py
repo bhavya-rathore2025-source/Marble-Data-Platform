@@ -222,9 +222,22 @@ MATERIAL_VARIANTS = [
     "Cut-to-Size",
     "Slab",
     "Block",
-    "Tile"
+    "Tile",
+    "Large Format",
+    "Small Format",
+    "Indoor",
+    "Outdoor",
+    "High Gloss",
+    "Matt Finish",
+    "Machine Cut",
+    "Hand Cut",
+    "Grade A",
+    "Grade B",
+    "Grade C",
+    "Architect Series"
 
 ]
+
 # Units of measure
 
 UNITS_OF_MEASURE = [

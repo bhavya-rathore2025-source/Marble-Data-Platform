@@ -1,0 +1,460 @@
+# Enterprise Marble Manufacturing & Distribution Data Platform
+
+**Project Specification (Living Document)**
+
+> **Version:** 0.1\
+> **Status:** Procurement Phase\
+> **Last Updated:** 2026-07-04
+
+------------------------------------------------------------------------
+
+# 1. Purpose
+
+This project aims to build a flagship Data Engineering portfolio project
+that resembles a real enterprise manufacturing environment rather than a
+typical academic project.
+
+The objective is to demonstrate modern ELT architecture, scalable data
+engineering practices, and realistic ERP-style data modeling using
+synthetic data.
+
+This specification serves as the single source of truth for the
+project's architecture, design decisions, business rules, and
+implementation progress.
+
+------------------------------------------------------------------------
+
+# 2. Project Goals
+
+-   Simulate multiple enterprise source systems.
+-   Generate realistic synthetic business data.
+-   Implement Bronze, Silver, and Gold layers.
+-   Design analytical star schemas.
+-   Build Power BI dashboards.
+-   Keep the architecture modular and extensible.
+-   Prioritize engineering quality over fake data complexity.
+
+------------------------------------------------------------------------
+
+# 3. Technology Stack
+
+  Layer             Technology
+  ----------------- --------------
+  Data Generation   Python
+  REST API          Express.js
+  Processing        PySpark
+  Bronze Storage    Parquet
+  Silver Storage    Parquet
+  Gold Layer        SQL Server
+  Reporting         Power BI
+  Version Control   Git & GitHub
+
+------------------------------------------------------------------------
+
+# 4. High-Level Architecture
+
+``` text
+CSV
+JSON
+REST API
+        │
+        ▼
+PySpark Bronze
+        │
+        ▼
+PySpark Silver
+        │
+        ▼
+SQL Server Gold
+        │
+        ▼
+Power BI
+```
+
+------------------------------------------------------------------------
+
+# 5. Project Structure
+
+``` text
+Marble-Data-Platform/
+
+├── api/
+├── data_generator/
+├── source_data/
+├── pipeline/
+├── lakehouse/
+├── sql/
+├── powerbi/
+├── docs/
+└── .gitignore
+```
+
+------------------------------------------------------------------------
+
+# 6. Development Philosophy
+
+The following principles guide every design decision:
+
+-   Schema before implementation.
+-   Engineering over fake data perfection.
+-   Only include columns with business value.
+-   Use realistic enterprise business processes.
+-   Complete one department before starting the next.
+-   Design for scalability and maintainability.
+-   Avoid redesigning schemas later.
+
+------------------------------------------------------------------------
+
+# 7. Business Calendar
+
+  Property     Value
+  ------------ ------------
+  Start Date   2024-01-01
+  End Date     2026-12-31
+
+------------------------------------------------------------------------
+
+# 8. Current Scope
+
+The current implementation focuses exclusively on the **Procurement
+Department**.
+
+Future departments will include:
+
+-   Inventory
+-   Production
+-   Sales
+-   Finance
+-   Logistics
+-   Others as required
+
+------------------------------------------------------------------------
+
+# 9. Source Systems
+
+  Department    Dataset                Source
+  ------------- ---------------------- ----------
+  Procurement   Suppliers              CSV
+  Procurement   Materials              CSV
+  Procurement   Purchase Orders        REST API
+  Procurement   Purchase Order Lines   REST API
+  Procurement   Goods Receipts         JSON
+  Procurement   Goods Receipt Lines    JSON
+
+------------------------------------------------------------------------
+
+# 10. Procurement Operational Schemas
+
+## Suppliers
+
+  Column
+  ---------------
+  supplier_id
+  supplier_code
+  supplier_name
+  city
+  state
+  supplier_type
+  status
+
+### Business Rules
+
+-   200 records
+-   Sequential IDs
+-   Supplier codes use `SUP0001` format
+-   90% Active
+-   10% Inactive
+-   85% Domestic
+-   15% International
+-   Unique company names
+
+------------------------------------------------------------------------
+
+## Materials
+
+  Column
+  -------------------
+  material_id
+  material_code
+  material_name
+  material_category
+  unit_of_measure
+  status
+
+### Business Rules
+
+-   500 records
+-   Sequential IDs
+-   Material codes use `MAT0001` format
+-   95% Active
+-   5% Inactive
+-   Unique material names
+-   Material price is **not** stored here
+
+------------------------------------------------------------------------
+
+## Purchase Orders
+
+  Column
+  ------------------------
+  po_id
+  po_number
+  supplier_id
+  order_date
+  expected_delivery_date
+  currency
+  payment_term
+  status
+
+Status: **Schema Finalized --- Generator Pending**
+
+------------------------------------------------------------------------
+
+## Purchase Order Lines
+
+  Column
+  ------------------
+  po_line_id
+  po_id
+  material_id
+  ordered_quantity
+  unit_price
+
+Status: **Schema Finalized --- Generator Pending**
+
+------------------------------------------------------------------------
+
+## Goods Receipts
+
+  Column
+  --------------
+  grn_id
+  po_id
+  warehouse_id
+  receipt_date
+
+Status: **Schema Finalized --- Generator Pending**
+
+------------------------------------------------------------------------
+
+## Goods Receipt Lines
+
+  Column
+  -------------------
+  grn_line_id
+  grn_id
+  po_line_id
+  quantity_received
+
+Status: **Schema Finalized --- Generator Pending**
+
+------------------------------------------------------------------------
+
+# 11. Entity Relationships
+
+``` text
+Supplier
+    │
+    ▼
+Purchase Order
+    │
+    ▼
+Purchase Order Line
+    │
+    ▼
+Goods Receipt Line
+    ▲
+    │
+Goods Receipt
+
+Material
+    │
+    └────────────► Purchase Order Line
+```
+
+------------------------------------------------------------------------
+
+# 12. Data Volumes
+
+  Dataset                  Approx. Rows
+  ---------------------- --------------
+  Suppliers                         200
+  Materials                         500
+  Purchase Orders               100,000
+  Purchase Order Lines          400,000
+  Goods Receipts                 80,000
+  Goods Receipt Lines           320,000
+
+------------------------------------------------------------------------
+
+# 13. Coding Standards
+
+-   snake_case naming
+-   Integer surrogate keys
+-   Prefix-based business codes
+-   One generator per file
+-   Centralized configuration in `config.py`
+-   No UUIDs
+-   Generated data is not committed to Git
+
+------------------------------------------------------------------------
+
+# 14. Runtime Configuration
+
+`config.py` is responsible for:
+
+-   Project paths
+-   Data volumes
+-   Business calendar
+-   Random seed
+-   Automatic folder creation
+
+------------------------------------------------------------------------
+
+# 15. Completed Components
+
+## Infrastructure
+
+-   Folder structure finalized
+-   Runtime folder creation
+-   `.gitignore`
+-   `run_all.py`
+
+## Core Modules
+
+-   `config.py`
+-   `master_data.py`
+-   `utils.py`
+
+## Data Generators
+
+-   `generate_suppliers.py`
+-   `generate_materials.py`
+
+------------------------------------------------------------------------
+
+# 16. Current Progress
+
+  Component                   Status
+  --------------------------- ----------------
+  Architecture                ✅ Complete
+  Procurement Design          ✅ Complete
+  Suppliers Generator         ✅ Complete
+  Materials Generator         ✅ Complete
+  Purchase Orders Generator   ⏳ Next
+  Procurement Completion      ⏳ In Progress
+
+------------------------------------------------------------------------
+
+# 17. Design Decisions
+
+## Accepted Decisions
+
+### Material Price
+
+Material prices are stored in **Purchase Order Lines**, not in
+Materials, because prices vary over time and by supplier.
+
+------------------------------------------------------------------------
+
+### Generated Data
+
+Generated datasets are excluded from Git.
+
+------------------------------------------------------------------------
+
+### Folder Creation
+
+Project folders are created automatically by `config.py`.
+
+No `.gitkeep` files are used.
+
+------------------------------------------------------------------------
+
+### Logging
+
+Development currently uses `print()`.
+
+Python logging will replace print statements after the Procurement
+module is complete.
+
+------------------------------------------------------------------------
+
+### Execution
+
+The project is executed only through:
+
+``` bash
+python run_all.py
+```
+
+Individual generators are not intended to be run directly.
+
+------------------------------------------------------------------------
+
+# 18. Development Workflow
+
+``` text
+Design Schema
+      ↓
+Business Rules
+      ↓
+Generator
+      ↓
+Testing
+      ↓
+Update run_all.py
+      ↓
+Commit
+```
+
+------------------------------------------------------------------------
+
+# 19. Future Plans
+
+The following items are planned but not yet implemented:
+
+## Procurement
+
+-   Purchase Orders Generator
+-   Purchase Order Lines Generator
+-   Goods Receipts Generator
+-   Goods Receipt Lines Generator
+
+## Data Pipeline
+
+-   Bronze Layer
+-   Silver Layer
+-   Gold Layer
+
+## Analytics
+
+-   Star Schema
+-   Power BI Dashboards
+
+## Engineering Enhancements
+
+-   Incremental Loads
+-   CDC
+-   SCD
+-   Data Validation
+-   Logging
+-   Error Handling
+-   Performance Optimization
+
+## Additional Business Domains To Be Added
+
+-   Inventory
+-   Production
+-   Sales
+-   Finance
+-   Logistics
+
+------------------------------------------------------------------------
+
+# 20. Maintenance
+
+This document is intended to evolve with the project.
+
+Whenever a major architectural decision is made, this specification
+should be updated before implementation proceeds.
