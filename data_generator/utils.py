@@ -78,3 +78,17 @@ def chance(percent: float) -> bool:
 def random_choice(values: list):
 
     return random.choice(values)
+
+
+def weighted_choice(options, weights):
+    """
+    Select a single value using weighted probabilities.
+
+    Args:
+        options (list): List of possible values.
+        weights (list): Relative probability for each option.
+
+    Returns:
+        Any: Randomly selected value.
+    """
+    return random.choices(options, weights=weights, k=1)[0]
