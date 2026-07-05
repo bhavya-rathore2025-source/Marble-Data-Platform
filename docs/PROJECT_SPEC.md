@@ -2,9 +2,9 @@
 
 **Project Specification (Living Document)**
 
-> **Version:** 0.1\
+> **Version:** 0.2\
 > **Status:** Procurement Phase\
-> **Last Updated:** 2026-07-04
+> **Last Updated:** 2026-07-05
 
 ------------------------------------------------------------------------
 
@@ -206,8 +206,6 @@ Future departments will include:
   payment_term
   status
 
-Status: **Schema Finalized --- Generator Pending**
-
 ------------------------------------------------------------------------
 
 ## Purchase Order Lines
@@ -219,8 +217,6 @@ Status: **Schema Finalized --- Generator Pending**
   material_id
   ordered_quantity
   unit_price
-
-Status: **Schema Finalized --- Generator Pending**
 
 ------------------------------------------------------------------------
 
@@ -328,21 +324,26 @@ Material
 
 ## Data Generators
 
--   `generate_suppliers.py`
--   `generate_materials.py`
+- `generate_suppliers.py`
+- `generate_materials.py`
+- `generate_purchase_orders.py`
+- `generate_purchase_order_lines.py`
 
 ------------------------------------------------------------------------
 
 # 16. Current Progress
 
-  Component                   Status
-  --------------------------- ----------------
-  Architecture                ✅ Complete
-  Procurement Design          ✅ Complete
-  Suppliers Generator         ✅ Complete
-  Materials Generator         ✅ Complete
-  Purchase Orders Generator   ⏳ Next
-  Procurement Completion      ⏳ In Progress
+ Component                      | Status          
+ ------------------------------ | --------------- 
+ Architecture                   | ✅ Complete    
+ Procurement Design             | ✅ Complete    
+ Suppliers Generator            | ✅ Complete    
+ Materials Generator            | ✅ Complete    
+ Purchase Orders Generator      | ✅ Complete    
+ Purchase Order Lines Generator | ✅ Complete    
+ Goods Receipts Generator       | ⏳ Next        
+ Goods Receipt Lines Generator  | ⏳ Pending     
+ Procurement Completion         | ⏳ In Progress 
 
 ------------------------------------------------------------------------
 
@@ -350,10 +351,35 @@ Material
 
 ## Accepted Decisions
 
+------------------------------------------------------------------------
+
+### Transaction Generation Order
+
+Transactional tables are generated in business-process order.
+
+Suppliers
+→ Purchase Orders
+→ Purchase Order Lines
+→ Goods Receipts
+→ Goods Receipt Lines
+
+Each generator reads previously generated data instead 
+of generating unrelated random foreign keys.
+
+------------------------------------------------------------------------
+
 ### Material Price
 
 Material prices are stored in **Purchase Order Lines**, not in
 Materials, because prices vary over time and by supplier.
+
+------------------------------------------------------------------------
+
+### Load Reference Data Once
+
+Reference datasets are loaded once before generation loops begin.
+
+Generators operate on in-memory objects instead of repeatedly reading files from disk to improve performance.
 
 ------------------------------------------------------------------------
 
@@ -392,21 +418,31 @@ Individual generators are not intended to be run directly.
 
 ------------------------------------------------------------------------
 
+# Performance Optimizations
+
+## Purchase Order Generation
+
+Active suppliers are loaded into memory once before generation begins.
+
+This reduced purchase order generation time from approximately 3 minutes to around 
+10 seconds by eliminating repeated file reads and DataFrame sampling inside the 
+generation loop.
+
 # 18. Development Workflow
 
-``` text
 Design Schema
       ↓
 Business Rules
       ↓
-Generator
+Update PROJECT_SPEC.md
+      ↓
+Implement Generator
       ↓
 Testing
       ↓
 Update run_all.py
       ↓
 Commit
-```
 
 ------------------------------------------------------------------------
 
@@ -416,8 +452,6 @@ The following items are planned but not yet implemented:
 
 ## Procurement
 
--   Purchase Orders Generator
--   Purchase Order Lines Generator
 -   Goods Receipts Generator
 -   Goods Receipt Lines Generator
 

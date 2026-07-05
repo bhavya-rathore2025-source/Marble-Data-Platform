@@ -296,3 +296,37 @@ WAREHOUSE_IDS = [
     5
 
 ]
+
+MATERIAL_PRICE_RANGES = {
+
+    "Marble": (1800, 6000),
+
+    "Granite": (1200, 4500),
+
+    "Quartz": (2500, 7000),
+
+    "Sandstone": (600, 2200),
+
+    "Limestone": (400, 1800),
+
+    "Slate": (700, 2500),
+
+    "Engineered Stone": (3000, 8000),
+
+    "Tile": (250, 1500),
+
+    "Adhesive": (250, 1200),
+
+    "Grout": (150, 800),
+
+    "Sealant": (300, 1800),
+
+    "Abrasive": (100, 900),
+
+    "Packaging": (50, 500),
+
+    "Tool": (500, 5000),
+
+    "Chemical": (200, 2500)
+
+}

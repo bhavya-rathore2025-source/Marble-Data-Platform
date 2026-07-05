@@ -1,3 +1,5 @@
+import json
+from config import PURCHASE_ORDERS_FILE
 import pandas as pd
 from functools import lru_cache
 from config import SUPPLIERS_FILE, MATERIALS_FILE
@@ -25,3 +27,14 @@ def load_materials():
     Load all materials.
     """
     return pd.read_csv(MATERIALS_FILE)
+
+
+def load_purchase_orders():
+
+    with open(
+        PURCHASE_ORDERS_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        return json.load(file)
