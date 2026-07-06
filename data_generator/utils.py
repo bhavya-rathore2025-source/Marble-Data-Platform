@@ -92,3 +92,19 @@ def weighted_choice(options, weights):
         Any: Randomly selected value.
     """
     return random.choices(options, weights=weights, k=1)[0]
+
+
+def offset_date(date_string: str,
+                min_days: int,
+                max_days: int) -> str:
+
+    base_date = datetime.strptime(
+        date_string,
+        "%Y-%m-%d"
+    )
+
+    new_date = base_date + timedelta(
+        days=random.randint(min_days, max_days)
+    )
+
+    return new_date.strftime("%Y-%m-%d")

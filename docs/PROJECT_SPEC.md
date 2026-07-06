@@ -2,9 +2,9 @@
 
 **Project Specification (Living Document)**
 
-> **Version:** 0.2\
+> **Version:** 0.3\
 > **Status:** Procurement Phase\
-> **Last Updated:** 2026-07-05
+> **Last Updated:** 2026-07-06
 
 ------------------------------------------------------------------------
 
@@ -229,8 +229,6 @@ Future departments will include:
   warehouse_id
   receipt_date
 
-Status: **Schema Finalized --- Generator Pending**
-
 ------------------------------------------------------------------------
 
 ## Goods Receipt Lines
@@ -328,6 +326,7 @@ Material
 - `generate_materials.py`
 - `generate_purchase_orders.py`
 - `generate_purchase_order_lines.py`
+- `generate_goods_receipts.py`
 
 ------------------------------------------------------------------------
 
@@ -341,7 +340,7 @@ Material
  Materials Generator            | ✅ Complete    
  Purchase Orders Generator      | ✅ Complete    
  Purchase Order Lines Generator | ✅ Complete    
- Goods Receipts Generator       | ⏳ Next        
+ Goods Receipts Generator       | ✅ Complete        
  Goods Receipt Lines Generator  | ⏳ Pending     
  Procurement Completion         | ⏳ In Progress 
 
@@ -365,6 +364,35 @@ Suppliers
 
 Each generator reads previously generated data instead 
 of generating unrelated random foreign keys.
+
+------------------------------------------------------------------------
+
+### Goods Receipt Generation
+
+A Goods Receipt is generated only for eligible Purchase Orders.
+
+Business Rules:
+
+- Closed Purchase Orders always receive a Goods Receipt.
+- Approved Purchase Orders have a 50% chance of receiving a Goods Receipt.
+- Open Purchase Orders do not receive a Goods Receipt.
+
+------------------------------------------------------------------------
+
+### One Goods Receipt Per Purchase Order
+
+Version 1 of the project models a single Goods Receipt for each eligible Purchase Order.
+
+Partial deliveries and multiple receipts are intentionally excluded to 
+keep the procurement process simple while preserving realistic business relationships.
+
+------------------------------------------------------------------------
+
+### Warehouse Assignment
+
+Warehouse IDs are assigned randomly from the available warehouse pool.
+
+A dedicated Warehouse master table will be introduced during the Inventory module.
 
 ------------------------------------------------------------------------
 
@@ -452,7 +480,6 @@ The following items are planned but not yet implemented:
 
 ## Procurement
 
--   Goods Receipts Generator
 -   Goods Receipt Lines Generator
 
 ## Data Pipeline
