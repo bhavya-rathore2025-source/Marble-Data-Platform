@@ -2,7 +2,7 @@
 
 **Project Specification (Living Document)**
 
-> **Version:** 0.3\
+> **Version:** 0.4\
 > **Status:** Procurement Phase\
 > **Last Updated:** 2026-07-06
 
@@ -240,8 +240,6 @@ Future departments will include:
   po_line_id
   quantity_received
 
-Status: **Schema Finalized --- Generator Pending**
-
 ------------------------------------------------------------------------
 
 # 11. Entity Relationships
@@ -327,6 +325,7 @@ Material
 - `generate_purchase_orders.py`
 - `generate_purchase_order_lines.py`
 - `generate_goods_receipts.py`
+- `generate_goods_recipts_lines.py`
 
 ------------------------------------------------------------------------
 
@@ -341,8 +340,8 @@ Material
  Purchase Orders Generator      | ✅ Complete    
  Purchase Order Lines Generator | ✅ Complete    
  Goods Receipts Generator       | ✅ Complete        
- Goods Receipt Lines Generator  | ⏳ Pending     
- Procurement Completion         | ⏳ In Progress 
+ Goods Receipt Lines Generator  | ✅ Complete    
+ Procurement Completion         | Generators Completed
 
 ------------------------------------------------------------------------
 

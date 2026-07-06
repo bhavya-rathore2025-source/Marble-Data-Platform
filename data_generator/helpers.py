@@ -1,3 +1,4 @@
+from config import GOODS_RECEIPTS_FILE
 import json
 from config import PURCHASE_ORDERS_FILE
 import pandas as pd
@@ -45,6 +46,17 @@ def load_purchase_order_lines():
 
     with open(
         PURCHASE_ORDER_LINES_FILE,
+        "r",
+        encoding="utf-8"
+    ) as file:
+
+        return json.load(file)
+
+
+def load_goods_receipts():
+
+    with open(
+        GOODS_RECEIPTS_FILE,
         "r",
         encoding="utf-8"
     ) as file:

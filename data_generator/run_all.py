@@ -3,6 +3,7 @@ from procurement.generate_materials import generate_materials
 from procurement.generate_purchase_orders import generate_purchase_orders
 from procurement.generate_purchase_order_lines import generate_purchase_order_lines
 from procurement.generate_goods_receipts import generate_goods_receipts
+from procurement.generate_goods_receipt_lines import generate_goods_receipt_lines
 
 
 def main():
@@ -13,7 +14,8 @@ def main():
     # generate_materials()
     # generate_purchase_orders()
     # generate_purchase_order_lines()
-    generate_goods_receipts()
+    # generate_goods_receipts()
+    generate_goods_receipt_lines()
     print("\nDone.")
 
 
