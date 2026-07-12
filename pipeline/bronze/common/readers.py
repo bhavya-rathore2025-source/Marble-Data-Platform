@@ -14,7 +14,7 @@ def read_csv(
         spark.read
         .option("header", True)
         .schema(schema)
-        .csv(file_path)
+        .csv(str(file_path))
     )
 
 
@@ -29,5 +29,5 @@ def read_json(
     return (
         spark.read
         .schema(schema)
-        .json(file_path)
+        .json(str(file_path))
     )
