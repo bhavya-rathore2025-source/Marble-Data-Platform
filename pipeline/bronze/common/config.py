@@ -12,6 +12,11 @@ BRONZE_PATH = LAKEHOUSE_PATH / "bronze"
 # File Format
 
 FILE_FORMAT = "parquet"
+
+CSV = "csv"
+JSON = "json"
+API = "api"
+
 COMPRESSION = "snappy"
 
 # Write Configuration
