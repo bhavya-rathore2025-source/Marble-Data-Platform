@@ -12,6 +12,7 @@ def ingest_table(
     table_name: str,
     source_type: str,
     schema: StructType,
+    domain: str,
 ) -> None:
     """
     Generic Bronze ingestion pipeline.
@@ -28,4 +29,8 @@ def ingest_table(
 
     df = add_metadata(df, source_type)
 
-    write_bronze(df, table_name)
+    write_bronze(
+        df=df,
+        domain=domain,
+        table_name=table_name,
+    )

@@ -11,4 +11,5 @@ def ingest_goods_receipt_lines(spark):
         table_name="goods_receipt_lines",
         source_type=JSON,
         schema=GOODS_RECEIPT_LINE_SCHEMA,
+        domain="procurement",
     )

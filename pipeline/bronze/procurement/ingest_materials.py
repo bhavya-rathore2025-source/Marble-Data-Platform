@@ -11,4 +11,5 @@ def ingest_materials(spark):
         table_name="materials",
         source_type=CSV,
         schema=MATERIAL_SCHEMA,
+        domain="procurement",
     )

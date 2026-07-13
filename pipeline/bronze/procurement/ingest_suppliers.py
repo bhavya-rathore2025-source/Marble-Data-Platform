@@ -11,4 +11,5 @@ def ingest_suppliers(spark):
         table_name="suppliers",
         source_type=CSV,
         schema=SUPPLIER_SCHEMA,
+        domain="procurement",
     )
