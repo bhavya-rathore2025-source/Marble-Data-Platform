@@ -2,9 +2,9 @@
 
 **Project Specification (Living Document)**
 
-> **Version:** 0.4\
-> **Status:** Procurement Phase\
-> **Last Updated:** 2026-07-06
+> **Version:** 0.4
+> **Status:**  Bronze Layer Completed (Phase 1)
+> **Last Updated:** 2026-07-13
 
 ------------------------------------------------------------------------
 
@@ -77,20 +77,54 @@ Power BI
 
 ``` text
 Marble-Data-Platform/
-
 ├── api/
 ├── data_generator/
-├── source_data/
-├── pipeline/
-├── lakehouse/
-├── sql/
-├── powerbi/
 ├── docs/
+│
+├── source_data/
+│   ├── procurement/
+│   ├── inventory/
+│   ├── production/
+│   ├── sales/
+│   ├── finance/
+│   └── logistics/
+│
+├── pipeline/
+│   ├── bronze/
+│   │   ├── common/
+│   │   └── procurement/
+│   ├── silver/
+│   └── gold/
+│
+├── lakehouse/
+│   └── bronze/
 └── .gitignore
 ```
 
 ------------------------------------------------------------------------
+# Bronze Layer Architecture
 
+CSV
+JSON
+REST API (Future)
+        │
+        ▼
+Reusable Bronze Framework
+        │
+        ▼
+Parquet
+
+# Bronze Responsibilities
+      -Read source systems.
+      -Apply predefined Spark schemas.
+      -Preserve source data.
+      -Add ingestion metadata.
+      -Write Parquet files.
+      -No transformations.
+      -No business validation.
+      -No joins.
+      -No aggregations.
+------------------------------------------------------------------------
 # 6. Development Philosophy
 
 The following principles guide every design decision:
@@ -341,7 +375,12 @@ Material
  Purchase Order Lines Generator | ✅ Complete    
  Goods Receipts Generator       | ✅ Complete        
  Goods Receipt Lines Generator  | ✅ Complete    
- Procurement Completion         | Generators Completed
+ Bronze Architecture	          | ✅ Complete
+ Bronze Framework	              | ✅ Complete
+ CSV Ingestion	                | ✅ Complete
+ JSON Ingestion	                | ✅ Complete
+ Procurement Bronze Pipeline	  | ✅ Complete
+ Procurement Completion         | Bronze Completed
 
 ------------------------------------------------------------------------
 
@@ -445,6 +484,32 @@ Individual generators are not intended to be run directly.
 
 ------------------------------------------------------------------------
 
+### Bronze Layer
+
+Bronze stores immutable source copies.
+
+Bronze performs no business transformations.
+
+Schema inference is disabled.
+
+All Bronze datasets are stored as Parquet.
+
+Metadata columns are added during ingestion.
+
+Reusable ingestion framework is shared across all business domains.
+
+Bronze output is organized by business domain.
+
+Current write mode uses overwrite because Version 1 models full ERP snapshots.
+
+Future versions will support append and incremental ingestion.
+
+# Bronze Metadata
+
+ingestion_timestamp
+
+source_system
+
 # Performance Optimizations
 
 ## Purchase Order Generation
@@ -457,19 +522,19 @@ generation loop.
 
 # 18. Development Workflow
 
-Design Schema
-      ↓
-Business Rules
-      ↓
-Update PROJECT_SPEC.md
-      ↓
-Implement Generator
-      ↓
-Testing
-      ↓
-Update run_all.py
-      ↓
-Commit
+Business Requirements
+        ↓
+Schema Design
+        ↓
+Source System Generation
+        ↓
+Bronze Ingestion
+        ↓
+Silver Transformation
+        ↓
+Gold Modeling
+        ↓
+Power BI
 
 ------------------------------------------------------------------------
 
@@ -479,11 +544,10 @@ The following items are planned but not yet implemented:
 
 ## Procurement
 
--   Goods Receipt Lines Generator
+Silver layer
 
 ## Data Pipeline
 
--   Bronze Layer
 -   Silver Layer
 -   Gold Layer
 

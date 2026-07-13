@@ -57,3 +57,5 @@ spark-warehouse/
 build/
 dist/
 *.egg-info/
+
+verify.py
