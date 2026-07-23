@@ -2,9 +2,9 @@
 
 **Project Specification (Living Document)**
 
-> **Version:** 0.4
-> **Status:**  Bronze Layer Completed (Phase 1)
-> **Last Updated:** 2026-07-13
+> **Version:** 0.5
+> **Status:**  Silver Layer in Progress (Phase 1)
+> **Last Updated:** 2026-07-23
 
 ------------------------------------------------------------------------
 
@@ -375,11 +375,11 @@ Material
  Purchase Order Lines Generator | ✅ Complete    
  Goods Receipts Generator       | ✅ Complete        
  Goods Receipt Lines Generator  | ✅ Complete    
- Bronze Architecture	          | ✅ Complete
- Bronze Framework	              | ✅ Complete
+ Bronze Architecture	        | ✅ Complete
+ Bronze Framework	        | ✅ Complete
  CSV Ingestion	                | ✅ Complete
  JSON Ingestion	                | ✅ Complete
- Procurement Bronze Pipeline	  | ✅ Complete
+ Procurement Bronze Pipeline	| ✅ Complete
  Procurement Completion         | Bronze Completed
 
 ------------------------------------------------------------------------
@@ -537,6 +537,88 @@ Gold Modeling
 Power BI
 
 ------------------------------------------------------------------------
+
+### Silver Layer
+
+------------------------------------------------------------------------
+
+pipeline/
+└── silver/
+    ├── common/
+    │   ├── config.py
+    │   ├── paths.py
+    │   ├── contracts.py
+    │   ├── reject_codes.py
+    │   ├── validators.py
+    │   ├── writer.py
+    │   ├── metrics.py
+    │   └── audit.py
+    │
+    └── procurement/
+        ├── supplier_rules.py
+        ├── material_rules.py
+        ├── purchase_order_rules.py
+        ├── purchase_order_line_rules.py
+        ├── goods_receipt_rules.py
+        ├── goods_receipt_line_rules.py
+        │
+        ├── transform_suppliers.py
+        ├── transform_materials.py
+        ├── transform_purchase_orders.py
+        ├── transform_purchase_order_lines.py
+        ├── transform_goods_receipts.py
+        └── transform_goods_receipt_lines.py
+
+
+------------------------------------------------------------------------
+
+
+## Silver Architecture
+
+Runner
+
+↓
+
+Read Bronze
+
+↓
+
+transform_xxx(df)
+
+↓
+
+(valid_df, reject_df, metrics)
+
+↓
+
+write_silver()
+
+↓
+
+write_rejects()
+
+↓
+
+write_audit()
+
+## Silver Responsibilities
+
+Responsibilities
+
+Document each module's responsibility:
+
+File	                           Responsibility
+validators.py	                   Generic validation framework
+contracts.py	                   Allowed business values
+reject_codes.py	                   Standard reject reason constants
+supplier_rules.py	           Supplier-specific business rules
+transform_suppliers.py	           Orchestrates supplier transformation
+writer.py	                   Writes Silver, Rejects, and Audit
+metrics.py	                   PipelineMetrics data model
+audit.py	                   Converts PipelineMetrics into audit records and writes them
+run_procurement.py	           Coordinates the Procurement Silver pipeline
+
+
 
 # 19. Future Plans
 
